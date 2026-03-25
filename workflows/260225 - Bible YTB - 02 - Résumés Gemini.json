@@ -1,0 +1,684 @@
+{
+  "name": "260225 - Bible YTB - 02 - Résumés Gemini",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "apposCLG4EW04JnCl",
+          "mode": "list",
+          "cachedResultName": "260225 - Bible YTB ",
+          "cachedResultUrl": "https://airtable.com/apposCLG4EW04JnCl"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblstbPiyLEljLB7m",
+          "mode": "list",
+          "cachedResultName": "Table 1",
+          "cachedResultUrl": "https://airtable.com/apposCLG4EW04JnCl/tblstbPiyLEljLB7m"
+        },
+        "filterByFormula": "AND(\n  {Lien URL} != \"\",\n  {Résumé Gemini} = \"\"\n)",
+        "returnAll": false,
+        "limit": 1,
+        "options": {},
+        "sort": {
+          "property": [
+            {
+              "field": "Date/heure Dernière Modif"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        -2752,
+        928
+      ],
+      "id": "be2723fa-9713-4d36-85c1-aab939254d12",
+      "name": "Search records",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "7bAMR1vkpEZw80oL",
+          "name": "Airtable Personal Access Token account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id={{$json[\"ID Vidéo\"]}}&key=AIzaSyAL2VQYhyGYfcQ1ocetrvkEyNmI07n3ENA",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -2528,
+        928
+      ],
+      "id": "546ae1f6-2f00-4548-88de-0ddf5bcf2eb1",
+      "name": "API n8n YTB",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "apposCLG4EW04JnCl",
+          "mode": "list",
+          "cachedResultName": "260225 - Bible YTB ",
+          "cachedResultUrl": "https://airtable.com/apposCLG4EW04JnCl"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblstbPiyLEljLB7m",
+          "mode": "list",
+          "cachedResultName": "Table 1",
+          "cachedResultUrl": "https://airtable.com/apposCLG4EW04JnCl/tblstbPiyLEljLB7m"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $('Search records').item.json.id }}",
+            "Statut traitement": "En cours ⏳",
+            "Résumé YTB": "={{ $json.items[0].snippet.description }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Lien URL",
+              "displayName": "Lien URL",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Tag Perso",
+              "displayName": "Tag Perso",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "ID Vidéo",
+              "displayName": "ID Vidéo",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Titre Vidéo",
+              "displayName": "Titre Vidéo",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Miniature",
+              "displayName": "Miniature",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Youtuber",
+              "displayName": "Youtuber",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Durée",
+              "displayName": "Durée",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Résumé YTB",
+              "displayName": "Résumé YTB",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Résumé Gemini",
+              "displayName": "Résumé Gemini",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Statut traitement",
+              "displayName": "Statut traitement",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": " Traité ✅",
+                  "value": " Traité ✅"
+                },
+                {
+                  "name": "Erreur ❌",
+                  "value": "Erreur ❌"
+                },
+                {
+                  "name": "Ignoré ⚠️",
+                  "value": "Ignoré ⚠️"
+                },
+                {
+                  "name": "En cours ⏳",
+                  "value": "En cours ⏳"
+                },
+                {
+                  "name": "NoteBook LM !",
+                  "value": "NoteBook LM !"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Error Détail",
+              "displayName": "Error Détail",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Date/heure Dernière Modif",
+              "displayName": "Date/heure Dernière Modif",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {
+          "typecast": true
+        }
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        -2304,
+        928
+      ],
+      "id": "8687236f-e064-4328-8af9-8a823ed6e6e2",
+      "name": "Rempli Airtable1",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "7bAMR1vkpEZw80oL",
+          "name": "Airtable Personal Access Token account 2"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "7ade6fd4-d7b0-453e-8ef5-c08a731f4741",
+              "leftValue": "={{ $('Rempli Airtable1').item.json.fields['Résumé YTB'] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -2080,
+        928
+      ],
+      "id": "af373a73-316b-489d-b616-762a1f0fe165",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Retraite le Snippet Youtube ci-dessous :\n{{ $('Rempli Airtable1').item.json.fields['Résumé YTB'] }}\n\nRÈGLE ABSOLUE N°1 : Ta réponse doit commencer UNIQUEMENT par le préfixe de catégorie (ex: 'OUTIL IA - ', 'WORKFLOW - ', etc.). Il est STRICTEMENT INTERDIT d'écrire 'TYPE DÉTECTÉ', '🎬', ou tout autre emoji ou introduction avant ce préfixe. Toute violation de cette règle est inacceptable.\n\nRÈGLE ABSOLUE N°2 : Va directement à l'analyse sans aucune phrase d'introduction comme 'Voici l'analyse...' ou 'Bien sûr...' ou toute autre introduction.\n\nTu es un expert en intelligence artificielle, technologie et automatisation. Analyse cette description de vidéo YouTube, identifie son type, puis fournis l'analyse détaillée correspondante en français.\n\nDESCRIPTION DE LA VIDÉO :\n{{ $('Rempli Airtable1').item.json.fields['Résumé YTB'] }}\n\nÉTAPE 1 — IDENTIFICATION DU TYPE\nDétecte le type principal parmi :\n- ACTUALITÉS IA\n- OUTIL IA\n- WORKFLOW / AUTOMATISATION\n- API / MCP\n- DÉMONSTRATION EN DIRECT\n- COMPARAISON D'OUTILS\n- COURS / FORMATION\n- CONSEILS / ASTUCES\n- SKILLS / COMPÉTENCES\n- TUTORIEL APPLE\n- INTERVIEW / PODCAST\n- YOUTUBE SHORT\n- AUTRE\n\nÉTAPE 2 — COMMENCE ta réponse OBLIGATOIREMENT par le préfixe correspondant au type détecté, suivi d'un tiret et d'un espace, puis enchaîne DIRECTEMENT avec l'analyse :\n\n- ACTUALITÉS IA → commence par : ACTUALITÉS IA - \n- OUTIL IA → commence par : OUTIL IA - \n- WORKFLOW / AUTOMATISATION → commence par : WORKFLOW - \n- API / MCP → commence par : API / MCP - \n- DÉMONSTRATION EN DIRECT → commence par : DÉMO EN DIRECT - \n- COMPARAISON D'OUTILS → commence par : COMPARAISON - \n- COURS / FORMATION → commence par : COURS/FORMATION - \n- CONSEILS / ASTUCES → commence par : CONSEILS/ASTUCES - \n- SKILLS / COMPÉTENCES → commence par : SKILLS/COMPÉTENCES - \n- TUTORIEL APPLE → commence par : APPLE TUTORIEL - \n- INTERVIEW / PODCAST → commence par : INTERVIEW/PODCAST - \n- YOUTUBE SHORT → commence par : SHORT - \n- AUTRE → commence par : AUTRE - \n\nÉTAPE 3 — ANALYSE SELON LE TYPE DÉTECTÉ\n\nACTUALITÉS IA\nFournis un compte rendu EXHAUSTIF de chaque actualité abordée dans la description. Pour chacune : contexte, informations clés, implications et détails importants. Ne laisse rien de côté.\n\nOUTIL IA (Claude, Gemini, ChatGPT, NotebookLM, Cursor, Mistral, n8n, etc.)\n1. Nom exact de l'outil et version si mentionnée\n2. Liste détaillée de toutes les nouvelles fonctionnalités mentionnées\n3. Améliorations par rapport aux versions précédentes si mentionnées\n4. Tous les cas d'usage décrits dans la description\n5. Limitations ou points négatifs évoqués\n\nWORKFLOW / AUTOMATISATION\nEN BREF : [Une phrase courte et percutante résumant l'objectif du workflow]\n\nAU PROGRAMME :\n[Liste à puces des étapes et fonctionnalités principales mentionnées dans la description]\n\nOUTILS UTILISÉS :\n[Pour chaque outil mentionné : nom, rôle dans le workflow, lien documentation officielle si présent dans la description]\n\nAPI / MCP\n1. Nom de l'API ou du MCP présenté\n2. À quoi il sert et quel problème il résout\n3. Démarches mentionnées pour le mettre en pratique\n4. Prérequis techniques mentionnés\n5. Liens et ressources présents dans la description\n\nDÉMONSTRATION EN DIRECT\n1. Objectif de la démonstration\n2. Étapes principales décrites dans la description\n3. Tous les liens URL mentionnés dans la description\n\nCOMPARAISON D'OUTILS\n1. Nom des outils comparés\n2. Critères de comparaison mentionnés\n3. Points forts et faibles de chaque outil si décrits\n4. Conclusion ou recommandation donnée dans la description\n\nCOURS / FORMATION\n1. Sujet principal du cours\n2. Liste des chapitres ou modules mentionnés avec leur contenu\n3. Liens URL présents dans la description pour chaque chapitre\n4. Prérequis et niveau requis si mentionnés\n\nCONSEILS / ASTUCES\nListe COMPLÈTE et DÉTAILLÉE de chaque conseil mentionné dans la description. Pour chacun :\n- Énoncé clair du conseil\n- Pourquoi ce conseil est important (si expliqué)\n- Détails pratiques pour le mettre en œuvre\nATTENTION : réponse détaillée et précise obligatoire, PAS de résumé succinct.\n\nSKILLS / COMPÉTENCES\n1. Liste numérotée de tous les skills présentés\n2. Pour chaque skill : description des capacités et cas d'usage concrets mentionnés\n\nTUTORIEL APPLE (iPhone / iPad / Apple Watch)\nPour chaque astuce mentionnée dans la description :\n- Nom de l'astuce\n- À quoi elle sert\n- Méthode d'activation si décrite\n\nINTERVIEW / PODCAST\n1. Nom et profil des intervenants si mentionnés\n2. Thèmes principaux abordés\n3. Idées clés décrites dans la description\n4. Résumé des enseignements\n\nYOUTUBE SHORT\nRésumé clair et complet en 3 à 5 phrases capturant l'essentiel du message de la description.\n\nAUTRE\nRésumé structuré et détaillé des points essentiels mentionnés dans la description."
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        -1856,
+        912
+      ],
+      "id": "52f595fb-3a3e-4353-85e2-651d3705f3ae",
+      "name": "Message a model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "ls02Z8Nde97KvhOE",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "apposCLG4EW04JnCl",
+          "mode": "list",
+          "cachedResultName": "260225 - Bible YTB ",
+          "cachedResultUrl": "https://airtable.com/apposCLG4EW04JnCl"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblstbPiyLEljLB7m",
+          "mode": "list",
+          "cachedResultName": "Table 1",
+          "cachedResultUrl": "https://airtable.com/apposCLG4EW04JnCl/tblstbPiyLEljLB7m"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $('Search records').item.json.id }}",
+            "Résumé Gemini": "={{ $('Message a model').item.json.content.parts[0].text }}",
+            "Statut traitement": " Traité ✅"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Lien URL",
+              "displayName": "Lien URL",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Tag Perso",
+              "displayName": "Tag Perso",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "ID Vidéo",
+              "displayName": "ID Vidéo",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Titre Vidéo",
+              "displayName": "Titre Vidéo",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Miniature",
+              "displayName": "Miniature",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Youtuber",
+              "displayName": "Youtuber",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Durée",
+              "displayName": "Durée",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Résumé YTB",
+              "displayName": "Résumé YTB",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Résumé Gemini",
+              "displayName": "Résumé Gemini",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Statut traitement",
+              "displayName": "Statut traitement",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": " Traité ✅",
+                  "value": " Traité ✅"
+                },
+                {
+                  "name": "Erreur ❌",
+                  "value": "Erreur ❌"
+                },
+                {
+                  "name": "Ignoré ⚠️",
+                  "value": "Ignoré ⚠️"
+                },
+                {
+                  "name": "En cours ⏳",
+                  "value": "En cours ⏳"
+                },
+                {
+                  "name": "NoteBook LM !",
+                  "value": "NoteBook LM !"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Error Détail",
+              "displayName": "Error Détail",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Date/heure Dernière Modif",
+              "displayName": "Date/heure Dernière Modif",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        -1504,
+        928
+      ],
+      "id": "1c9f9cdc-eecf-405f-bbf0-ab6392345ec5",
+      "name": "Update record1",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "7bAMR1vkpEZw80oL",
+          "name": "Airtable Personal Access Token account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 2
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -2976,
+        928
+      ],
+      "id": "3b4a5b32-a138-4931-b8c5-20988a0179fa",
+      "name": "Ttes les 2 Min"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "API n8n YTB": {
+      "main": [
+        [
+          {
+            "node": "Rempli Airtable1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search records": {
+      "main": [
+        [
+          {
+            "node": "API n8n YTB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rempli Airtable1": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Update record1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ttes les 2 Min": {
+      "main": [
+        [
+          {
+            "node": "Search records",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "bb2f35eb-c92d-4f37-8211-53d23075bbd5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c67f7b64c6096e9566f97f75e13e3ac0d1b1615ef477d7e8ba5daa291279a648"
+  },
+  "id": "LBRkVp6CnW8lEpNI",
+  "tags": []
+}
